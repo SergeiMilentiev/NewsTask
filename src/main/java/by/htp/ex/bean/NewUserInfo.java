@@ -3,13 +3,24 @@ package by.htp.ex.bean;
 import java.util.Objects;
 
 public class NewUserInfo {
-	String firstName;
-	String lastName;
-	String dateOfBirth;
-	String email;
-	String password;
+	private String firstName;
+	private String lastName;
+	private String dateOfBirth;
+	private String login;
+	private String email;
+	private String password;
 	
-	public NewUserInfo() {
+	public NewUserInfo() {}
+
+	public NewUserInfo(String firstName, String lastName, String dateOfBirth, String login, String email,
+			String password) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.dateOfBirth = dateOfBirth;
+		this.login = login;
+		this.email = email;
+		this.password = password;
 	}
 
 	public NewUserInfo(String firstName, String lastName, String dateOfBirth, String email, String password) {
@@ -53,6 +64,14 @@ public class NewUserInfo {
 		this.dateOfBirth = dateOfBirth;
 	}
 
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+	
 	public String getEmail() {
 		return email;
 	}

@@ -18,6 +18,8 @@
 			<input type="date" name="dateOfBirth" placeholder="Введите дату рождения">
 			<p>Введите email</p>
 			<input type="email" name="email" placeholder="Введите email">
+			<p>Введите login</p>
+			<input type="login" name="login" placeholder="Введите login">
 			<p>Введите пароль</p>
 			<input type="password" name="password" placeholder="Введите пароль">
 			
