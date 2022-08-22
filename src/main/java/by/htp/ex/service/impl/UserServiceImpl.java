@@ -7,10 +7,13 @@ import by.htp.ex.dao.DaoProvider;
 import by.htp.ex.dao.IUserDAO;
 import by.htp.ex.service.IUserService;
 import by.htp.ex.service.ServiceException;
+import by.htp.ex.util.validation.UserDataValidation;
+import by.htp.ex.util.validation.ValidationProvider;
 
 public class UserServiceImpl implements IUserService {
 
 	private final IUserDAO userDAO = DaoProvider.getInstance().getUserDao();
+	private final UserDataValidation userDataValidation = ValidationProvider.getInstance().getUserDataValidation();
 
 	@Override
 	public String signIn(String login, String password) throws ServiceException {
@@ -31,8 +34,8 @@ public class UserServiceImpl implements IUserService {
 	@Override
 	public boolean registration(NewUserInfo user) throws ServiceException {
 		try {
-			if (userDAO.registration(user)) {
-				System.out.println("true on service");
+			if (userDAO.registration(user) && userDataValidation.checkRegData(user) && !isUserAlreadyEcxists(user)) {
+				System.out.println("правильный юзер");
 				return true;
 			} else {
 				return false;
@@ -42,4 +45,7 @@ public class UserServiceImpl implements IUserService {
 		}
 	}
 
+	private boolean isUserAlreadyEcxists(NewUserInfo user) throws DaoException {
+		return userDAO.checkUserEcxists(user.getLogin(), user.getEmail());
+	}
 }

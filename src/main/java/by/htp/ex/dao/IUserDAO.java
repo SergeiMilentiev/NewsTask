@@ -11,4 +11,6 @@ public interface IUserDAO {
 
 	public String getRole(String login, String password) throws DaoException;
 
+	boolean checkUserEcxists(String login, String email) throws DaoException;
+
 }

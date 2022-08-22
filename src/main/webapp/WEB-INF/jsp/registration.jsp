@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,7 +24,15 @@
 			<p>Введите пароль</p>
 			<input type="password" name="password" placeholder="Введите пароль">
 			
+			<c:forEach var="invalidData" items="${sessionScope.RegistrationError}">
+				<font color="red">
+					<c:out value="${invalidData}"/><br>
+				</font>
+			</c:forEach>
+			
 			<input type="submit" value="Registration">
+			
+			
 	</form>
 	</div>
 </body>
