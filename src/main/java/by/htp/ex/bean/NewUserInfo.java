@@ -1,16 +1,20 @@
 package by.htp.ex.bean;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class NewUserInfo {
+public class NewUserInfo implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 	private String firstName;
 	private String lastName;
 	private String dateOfBirth;
 	private String login;
 	private String email;
 	private String password;
-	
-	public NewUserInfo() {}
+
+	public NewUserInfo() {
+	}
 
 	public NewUserInfo(String firstName, String lastName, String dateOfBirth, String login, String email,
 			String password) {
@@ -71,7 +75,7 @@ public class NewUserInfo {
 	public void setLogin(String login) {
 		this.login = login;
 	}
-	
+
 	public String getEmail() {
 		return email;
 	}
@@ -112,5 +116,5 @@ public class NewUserInfo {
 		return "NewUserInfo [firstName=" + firstName + ", lastName=" + lastName + ", dateOfBirth=" + dateOfBirth
 				+ ", email=" + email + ", password=" + password + "]";
 	}
-	
+
 }

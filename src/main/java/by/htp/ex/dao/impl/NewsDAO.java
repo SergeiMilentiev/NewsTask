@@ -1,9 +1,17 @@
 package by.htp.ex.dao.impl;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import by.htp.ex.bean.News;
+import by.htp.ex.connection.ConnectionPool;
+import by.htp.ex.connection.ConnectionPoolException;
+import by.htp.ex.constant.NewsConstant;
+import by.htp.ex.constant.SQLConstant;
 import by.htp.ex.dao.INewsDAO;
 import by.htp.ex.dao.NewsDAOException;
 
@@ -12,13 +20,20 @@ public class NewsDAO implements INewsDAO {
 	@Override
 	public List<News> getLatestsList(int count) throws NewsDAOException {
 		List<News> result = new ArrayList<News>();
-
-		result.add(new News(1, "title1", "brief1brief1brief1brief1brief1brief1brief1", "contect1", "11/11/22"));
-		result.add(new News(2, "title2", "brief2brief2brief2brief2brief2brief2brief2", "contect2", "11/11/22"));
-		result.add(new News(3, "title3", "brief3brief3brief3brief3brief3brief3brief3", "contect3", "11/11/22"));
-		result.add(new News(4, "title4", "brief4brief4brief4brief4brief4brief4brief4", "contect4", "11/11/22"));
-		result.add(new News(5, "title5", "brief5brief5brief5brief5brief5brief5brief5", "contect5", "11/11/22"));
-
+		try (Connection connection = ConnectionPool.getInstance().takeConnection();
+				PreparedStatement stmt = connection.prepareStatement(SQLConstant.GET_LATEST_NEWS)) {
+			stmt.setInt(1, count);
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				News news = new News(rs.getInt(NewsConstant.NEWS_ID), rs.getString(NewsConstant.NEWS_TITLE),
+						rs.getString(NewsConstant.NEWS_BRIEF), rs.getString(NewsConstant.NEWS_CONTENT),
+						rs.getString(NewsConstant.NEWS_DATE));
+				result.add(news);
+			}
+			return result;
+		} catch (SQLException | ConnectionPoolException e) {
+			e.printStackTrace();
+		}
 		return result;
 	}
 
@@ -26,36 +41,83 @@ public class NewsDAO implements INewsDAO {
 	public List<News> getList() throws NewsDAOException {
 		List<News> result = new ArrayList<News>();
 
-		result.add(new News(1, "title1", "brief1brief1brief1brief1brief1brief1brief1", "contect1", "11/11/22"));
-		result.add(new News(2, "title2", "brief2brief2brief2brief2brief2brief2brief2", "contect2", "11/11/22"));
-		result.add(new News(3, "title3", "brief3brief3brief3brief3brief3brief3brief3", "contect3", "11/11/22"));
-		result.add(new News(4, "title4", "brief4brief4brief4brief4brief4brief4brief4", "contect4", "11/11/22"));
-		result.add(new News(5, "title5", "brief5brief5brief5brief5brief5brief5brief5", "contect5", "11/11/22"));
+		try (Connection connection = ConnectionPool.getInstance().takeConnection();
+				PreparedStatement stmt = connection.prepareStatement(SQLConstant.GET_ALL_NEWS)) {
 
-		return result;
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				News news = new News(rs.getInt(NewsConstant.NEWS_ID), rs.getString(NewsConstant.NEWS_TITLE),
+						rs.getString(NewsConstant.NEWS_BRIEF), rs.getString(NewsConstant.NEWS_CONTENT),
+						rs.getString(NewsConstant.NEWS_DATE));
+				result.add(news);
+			}
+
+			return result;
+
+		} catch (ConnectionPoolException | SQLException e) {
+
+			throw new NewsDAOException(e);
+		}
 	}
 
 	@Override
 	public News fetchById(int id) throws NewsDAOException {
-		return new News(1, "title1", "brief1brief1brief1brief1brief1brief1brief1", "contect1", "11/11/22");
+		try (Connection connection = ConnectionPool.getInstance().takeConnection();
+				PreparedStatement stmt = connection.prepareStatement(SQLConstant.FETCH_BY_ID_NEWS)) {
+			stmt.setInt(1, id);
+			ResultSet rs = stmt.executeQuery();
+
+			News news = new News(rs.getInt(NewsConstant.NEWS_ID), rs.getString(NewsConstant.NEWS_TITLE),
+					rs.getString(NewsConstant.NEWS_BRIEF), rs.getString(NewsConstant.NEWS_CONTENT),
+					rs.getString(NewsConstant.NEWS_DATE));
+			return news;
+		} catch (ConnectionPoolException | SQLException e) {
+			throw new NewsDAOException(e);
+		}
 	}
 
 	@Override
-	public int addNews(News news) throws NewsDAOException {
-		// TODO Auto-generated method stub
-		return 0;
+	public boolean addNews(News news) throws NewsDAOException {
+		try (Connection connection = ConnectionPool.getInstance().takeConnection();
+				PreparedStatement stmt = connection.prepareStatement(SQLConstant.ADD_NEWS)) {
+			stmt.setString(1, news.getTitle());
+			stmt.setString(2, news.getBriefNews());
+			stmt.setString(3, news.getContent());
+			stmt.setString(4, news.getNewsDate());
+			return stmt.execute();
+		} catch (ConnectionPoolException | SQLException e) {
+			throw new NewsDAOException(e);
+		}
 	}
 
 	@Override
 	public void updateNews(News news) throws NewsDAOException {
-		// TODO Auto-generated method stub
+		try (Connection connection = ConnectionPool.getInstance().takeConnection();
+				PreparedStatement stmt = connection.prepareStatement(SQLConstant.UPDATE_NEWS)) {
+			stmt.setString(1, news.getTitle());
+			stmt.setString(2, news.getBriefNews());
+			stmt.setString(3, news.getContent());
+			stmt.setString(4, news.getNewsDate());
+
+			stmt.executeUpdate();
+
+		} catch (ConnectionPoolException | SQLException e) {
+			throw new NewsDAOException(e);
+		}
 
 	}
 
 	@Override
-	public void deleteNewses(String[] idNewses) throws NewsDAOException {
-		// TODO Auto-generated method stub
-
+	public void deleteNewses(int[] idNewses) throws NewsDAOException {
+		try (Connection connection = ConnectionPool.getInstance().takeConnection();
+				PreparedStatement stmt = connection.prepareStatement(SQLConstant.DELETE_NEWS)) {
+			for (int i : idNewses) {
+				stmt.setInt(1, i);
+				stmt.executeQuery();
+			}
+		} catch (ConnectionPoolException | SQLException e) {
+			throw new NewsDAOException(e);
+		}
 	}
 
 }

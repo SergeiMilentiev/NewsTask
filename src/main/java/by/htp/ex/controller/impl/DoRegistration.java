@@ -3,7 +3,11 @@ package by.htp.ex.controller.impl;
 import java.io.IOException;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import by.htp.ex.bean.NewUserInfo;
+import by.htp.ex.constant.UserConstant;
 import by.htp.ex.controller.Command;
 import by.htp.ex.service.IUserService;
 import by.htp.ex.service.ServiceException;
@@ -16,6 +20,8 @@ import jakarta.servlet.http.HttpServletResponse;
 
 public class DoRegistration implements Command {
 
+	private final static Logger LOG = LogManager.getLogger(DoRegistration.class);
+
 	private final IUserService service = ServiceProvider.getInstance().getUserService();
 	private final UserDataValidation userDataValidation = ValidationProvider.getInstance().getUserDataValidation();
 
@@ -24,12 +30,12 @@ public class DoRegistration implements Command {
 
 		NewUserInfo newUser = new NewUserInfo();
 
-		String firstName = request.getParameter("firstName");
-		String lastName = request.getParameter("lastName");
-		String dateOfBirth = request.getParameter("dateOfBirth");
-		String email = request.getParameter("email");
-		String login = request.getParameter("login");
-		String password = request.getParameter("password");
+		String firstName = request.getParameter(UserConstant.NAME);
+		String lastName = request.getParameter(UserConstant.SURNAME);
+		String dateOfBirth = request.getParameter(UserConstant.DATE_OF_BIRTH);
+		String email = request.getParameter(UserConstant.EMAIL);
+		String login = request.getParameter(UserConstant.LOGIN);
+		String password = request.getParameter(UserConstant.PASSWORD);
 
 		newUser.setFirstName(firstName);
 		newUser.setLastName(lastName);
@@ -49,11 +55,10 @@ public class DoRegistration implements Command {
 				List<String> invalidData = userDataValidation.getInvalidData();
 				request.getSession(true).setAttribute("user", "not active");
 				request.setAttribute("RegistrationError", invalidData);
-				// request.getRequestDispatcher("/WEB-INF/pages/layouts/baseLayout.jsp").forward(request,
-				// response);
+				request.getRequestDispatcher("/WEB-INF/pages/layouts/baseLayout.jsp").forward(request, response);
 			}
 		} catch (ServiceException e) {
-			e.printStackTrace();
+			LOG.error(e);
 		}
 	}
 

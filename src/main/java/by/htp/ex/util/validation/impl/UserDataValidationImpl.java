@@ -21,18 +21,23 @@ public class UserDataValidationImpl implements UserDataValidation {
 	public boolean checkRegData(NewUserInfo user) {
 
 		if (!checkingNameOrSurname(user.getFirstName())) {
+			System.out.println("неверное имя");
 			invalidData.add(ValidationConstant.INVALID_NAME);
 		}
 		if (!checkingNameOrSurname(user.getLastName())) {
+			System.out.println("неверная фамилия");
 			invalidData.add(ValidationConstant.INVALID_SURNAME);
 		}
 		if (!checkingLoginOrPassword(user.getLogin())) {
+			System.out.println("неверный логин");
 			invalidData.add(ValidationConstant.INVALID_LOGIN);
 		}
 		if (!checkingLoginOrPassword(user.getPassword())) {
+			System.out.println("неверный пароль");
 			invalidData.add(ValidationConstant.INVALID_PASSWORD);
 		}
 		if (!checkingEmail(user.getEmail())) {
+			System.out.println("неверный email");
 			invalidData.add(ValidationConstant.INVALID_EMAIL);
 		}
 
@@ -53,6 +58,7 @@ public class UserDataValidationImpl implements UserDataValidation {
 		return Pattern.compile(ValidationConstant.EMAIL_REGEX).matcher(email).matches();
 	}
 
+	@Override
 	public List<String> getInvalidData() {
 		return invalidData;
 	}

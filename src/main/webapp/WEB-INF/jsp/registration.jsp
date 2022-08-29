@@ -12,9 +12,9 @@
 	    <form action="controller" method="post">
 		<input type="hidden" name="command" value="do_registration">
 			<p>Введите имя</p>
-			<input type="text" name="firstName" placeholder="Введите имя">
+			<input type="text" name="name" placeholder="Введите имя">
 			<p>Введите фамилию</p>
-			<input type="text" name="lastName" placeholder="Введите фамилию">
+			<input type="text" name="surname" placeholder="Введите фамилию">
 			<p>Введите дату рождения</p>
 			<input type="date" name="dateOfBirth" placeholder="Введите дату рождения">
 			<p>Введите email</p>
