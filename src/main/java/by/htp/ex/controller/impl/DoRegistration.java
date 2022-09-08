@@ -32,14 +32,12 @@ public class DoRegistration implements Command {
 
 		String firstName = request.getParameter(UserConstant.NAME);
 		String lastName = request.getParameter(UserConstant.SURNAME);
-		String dateOfBirth = request.getParameter(UserConstant.DATE_OF_BIRTH);
 		String email = request.getParameter(UserConstant.EMAIL);
 		String login = request.getParameter(UserConstant.LOGIN);
 		String password = request.getParameter(UserConstant.PASSWORD);
 
 		newUser.setFirstName(firstName);
 		newUser.setLastName(lastName);
-		newUser.setDateOfBirth(dateOfBirth);
 		newUser.setEmail(email);
 		newUser.setPassword(password);
 		newUser.setLogin(login);
@@ -49,7 +47,7 @@ public class DoRegistration implements Command {
 
 			if (isRegistrationComplite) {
 				request.getSession(true).setAttribute("user", "not active");
-				request.getSession(true).setAttribute("role", "user");
+				request.getSession().setAttribute("role", "user");
 				response.sendRedirect("controller?command=GO_TO_BASE_PAGE");
 			} else {
 				List<String> invalidData = userDataValidation.getInvalidData();

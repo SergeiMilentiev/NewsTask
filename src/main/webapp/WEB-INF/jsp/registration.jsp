@@ -15,8 +15,6 @@
 			<input type="text" name="name" placeholder="Введите имя">
 			<p>Введите фамилию</p>
 			<input type="text" name="surname" placeholder="Введите фамилию">
-			<p>Введите дату рождения</p>
-			<input type="date" name="dateOfBirth" placeholder="Введите дату рождения">
 			<p>Введите email</p>
 			<input type="email" name="email" placeholder="Введите email">
 			<p>Введите login</p>

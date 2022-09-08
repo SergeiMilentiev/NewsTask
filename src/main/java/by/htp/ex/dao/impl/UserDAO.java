@@ -31,8 +31,20 @@ public class UserDAO implements IUserDAO {
 	}
 
 	@Override
-	public String getRole(String login, String password) {
-		return UserConstant.USER_ROLE;
+	public String getRole(String login, String password) throws DaoException {
+		String role = null;
+		try (final Connection connection = connectionPool.takeConnection();
+				PreparedStatement stmt = connection.prepareStatement(SQLConstant.GET_USERS_ROLE_SQL_REQUEST)) {
+			stmt.setString(1, login);
+			stmt.setString(2, password);
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				role = rs.getString(UserConstant.ROLE);
+			}
+			return role;
+		} catch (SQLException | ConnectionPoolException e) {
+			throw new DaoException(e);
+		}
 	}
 
 	@Override
@@ -41,10 +53,9 @@ public class UserDAO implements IUserDAO {
 				PreparedStatement stmt = connection.prepareStatement(SQLConstant.REGISTRATION_SQL_REQUEST)) {
 			stmt.setString(1, user.getFirstName());
 			stmt.setString(2, user.getLastName());
-			stmt.setString(3, user.getDateOfBirth());
-			stmt.setString(4, user.getEmail());
-			stmt.setString(5, user.getPassword());
-			stmt.setString(6, user.getLogin());
+			stmt.setString(3, user.getEmail());
+			stmt.setString(4, user.getPassword());
+			stmt.setString(5, user.getLogin());
 			return stmt.execute();
 		} catch (SQLException | ConnectionPoolException e) {
 			throw new DaoException(e);

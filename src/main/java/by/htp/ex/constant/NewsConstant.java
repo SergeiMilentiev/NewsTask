@@ -1,9 +1,9 @@
 package by.htp.ex.constant;
 
 public class NewsConstant {
-	public static final String NEWS_ID = "idNews";
+	public static final String NEWS_ID = "id";
 	public static final String NEWS_TITLE = "title";
-	public static final String NEWS_BRIEF = "briefNews";
+	public static final String NEWS_BRIEF = "brief";
 	public static final String NEWS_CONTENT = "content";
 	public static final String NEWS_DATE = "newsDate";
 

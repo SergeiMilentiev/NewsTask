@@ -2,6 +2,7 @@ package by.htp.ex.service.impl;
 
 import by.htp.ex.bean.NewUserInfo;
 import by.htp.ex.connection.ConnectionPoolException;
+import by.htp.ex.constant.UserConstant;
 import by.htp.ex.dao.DaoException;
 import by.htp.ex.dao.DaoProvider;
 import by.htp.ex.dao.IUserDAO;
@@ -23,7 +24,7 @@ public class UserServiceImpl implements IUserService {
 				System.out.println("Залогинились");
 				return userDAO.getRole(login, password);
 			} else {
-				return "guest";
+				return UserConstant.GUEST_ROLE;
 			}
 
 		} catch (DaoException | ConnectionPoolException e) {
