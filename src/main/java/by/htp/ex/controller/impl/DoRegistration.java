@@ -1,12 +1,13 @@
 package by.htp.ex.controller.impl;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import by.htp.ex.bean.NewUserInfo;
+import by.htp.ex.constant.ControllerConstant;
 import by.htp.ex.constant.UserConstant;
 import by.htp.ex.controller.Command;
 import by.htp.ex.service.IUserService;
@@ -46,14 +47,14 @@ public class DoRegistration implements Command {
 			boolean isRegistrationComplite = service.registration(newUser);
 
 			if (isRegistrationComplite) {
-				request.getSession(true).setAttribute("user", "not active");
-				request.getSession().setAttribute("role", "user");
-				response.sendRedirect("controller?command=GO_TO_BASE_PAGE");
+				request.getSession().setAttribute("isRegistrationComplite", true);
+				response.sendRedirect(ControllerConstant.GO_TO_BASE_PAGE);
 			} else {
-				List<String> invalidData = userDataValidation.getInvalidData();
-				request.getSession(true).setAttribute("user", "not active");
-				request.setAttribute("RegistrationError", invalidData);
-				request.getRequestDispatcher("/WEB-INF/pages/layouts/baseLayout.jsp").forward(request, response);
+				Map<String, Boolean> invalidData = userDataValidation.getInvalidData();
+				//request.getSession(true).setAttribute("user", "not active");
+				request.getSession().setAttribute(ControllerConstant.REGISTRATION_ERROR, invalidData);
+				//request.getRequestDispatcher("/WEB-INF/pages/layouts/baseLayout.jsp").forward(request, response);
+				response.sendRedirect(ControllerConstant.GO_TO_REGISTRATION_PAGE);
 			}
 		} catch (ServiceException e) {
 			LOG.error(e);

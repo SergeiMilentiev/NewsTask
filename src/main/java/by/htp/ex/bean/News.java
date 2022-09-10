@@ -1,22 +1,23 @@
 package by.htp.ex.bean;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class News implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private Integer idNews = 0;
-	private String title = "";
-	private String briefNews = "";
-	private String content = "";
-	private String newsDate = "";
+	private Integer idNews;
+	private String title;
+	private String briefNews;
+	private String content;
+	private LocalDate newsDate;
 
 	public News() {
 	}
 
-	public News(int idNews, String title, String briefNews, String content, String newsDate) {
+	public News(int idNews, String title, String briefNews, String content, LocalDate newsDate) {
 		super();
 		this.idNews = idNews;
 		this.title = title;
@@ -25,7 +26,7 @@ public class News implements Serializable {
 		this.newsDate = newsDate;
 	}
 
-	public News(String title, String briefNews, String content, String newsDate) {
+	public News(String title, String briefNews, String content, LocalDate newsDate) {
 		super();
 		this.title = title;
 		this.briefNews = briefNews;
@@ -66,11 +67,11 @@ public class News implements Serializable {
 
 	}
 
-	public String getNewsDate() {
+	public LocalDate getNewsDate() {
 		return newsDate;
 	}
 
-	public void setNewsDate(String newsDate) {
+	public void setNewsDate(LocalDate newsDate) {
 		this.newsDate = newsDate;
 	}
 

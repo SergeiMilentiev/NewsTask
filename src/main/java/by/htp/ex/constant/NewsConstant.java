@@ -6,6 +6,8 @@ public class NewsConstant {
 	public static final String NEWS_BRIEF = "brief";
 	public static final String NEWS_CONTENT = "content";
 	public static final String NEWS_DATE = "newsDate";
+	public static final String NEWS_ADD_STATUS = "news_add_status";
+	public static final String NEWS_ADDED_STATUS = "news_added_status";
 
 	// GO_TO Constants
 	public static final String GO_TO_NEWS_LIST = "controller?command=go_to_news_list";

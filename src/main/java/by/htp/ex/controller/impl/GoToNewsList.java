@@ -17,7 +17,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 public class GoToNewsList implements Command {
 
-	private final static Logger LOG = LogManager.getLogger(GoToBasePage.class);
+	private final static Logger LOG = LogManager.getLogger(GoToNewsList.class);
 
 	private final INewsService newsService = ServiceProvider.getInstance().getNewsService();
 

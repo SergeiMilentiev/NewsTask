@@ -1,6 +1,7 @@
 package by.htp.ex.dao.impl;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -27,7 +28,7 @@ public class NewsDAO implements INewsDAO {
 			while (rs.next()) {
 				News news = new News(rs.getInt(NewsConstant.NEWS_ID), rs.getString(NewsConstant.NEWS_TITLE),
 						rs.getString(NewsConstant.NEWS_BRIEF), rs.getString(NewsConstant.NEWS_CONTENT),
-						rs.getString(NewsConstant.NEWS_DATE));
+						rs.getDate(NewsConstant.NEWS_DATE).toLocalDate());
 				result.add(news);
 			}
 			return result;
@@ -48,7 +49,7 @@ public class NewsDAO implements INewsDAO {
 			while (rs.next()) {
 				News news = new News(rs.getInt(NewsConstant.NEWS_ID), rs.getString(NewsConstant.NEWS_TITLE),
 						rs.getString(NewsConstant.NEWS_BRIEF), rs.getString(NewsConstant.NEWS_CONTENT),
-						rs.getString(NewsConstant.NEWS_DATE));
+						rs.getDate(NewsConstant.NEWS_DATE).toLocalDate());
 				result.add(news);
 			}
 
@@ -69,7 +70,8 @@ public class NewsDAO implements INewsDAO {
 
 			News news = new News(rs.getInt(NewsConstant.NEWS_ID), rs.getString(NewsConstant.NEWS_TITLE),
 					rs.getString(NewsConstant.NEWS_BRIEF), rs.getString(NewsConstant.NEWS_CONTENT),
-					rs.getString(NewsConstant.NEWS_DATE));
+					rs.getDate(NewsConstant.NEWS_DATE).toLocalDate());
+			System.out.println(news);
 			return news;
 		} catch (ConnectionPoolException | SQLException e) {
 			throw new NewsDAOException(e);
@@ -83,7 +85,7 @@ public class NewsDAO implements INewsDAO {
 			stmt.setString(1, news.getTitle());
 			stmt.setString(2, news.getBriefNews());
 			stmt.setString(3, news.getContent());
-			stmt.setString(4, news.getNewsDate());
+			stmt.setDate(4, Date.valueOf(news.getNewsDate()));
 			return stmt.execute();
 		} catch (ConnectionPoolException | SQLException e) {
 			throw new NewsDAOException(e);
@@ -97,7 +99,7 @@ public class NewsDAO implements INewsDAO {
 			stmt.setString(1, news.getTitle());
 			stmt.setString(2, news.getBriefNews());
 			stmt.setString(3, news.getContent());
-			stmt.setString(4, news.getNewsDate());
+			stmt.setDate(4, Date.valueOf(news.getNewsDate()));
 
 			stmt.executeUpdate();
 

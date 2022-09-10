@@ -27,7 +27,6 @@
 				<div class="verticalcenter">
 					<img src="images/image1.jpg" alt="HTML5 Icon" style="width:200px;height:350px;">
 				</div>
-					<%-- <c:import url=""></c:import> --%>
 				</c:if>
 				<c:if test="${sessionScope.user eq 'active'}">
 					<c:import url="/WEB-INF/pages/tiles/menu.jsp" />

@@ -28,8 +28,6 @@ public class GoToBasePage implements Command {
 		try {
 			latestNews = newsService.latestList(5);
 			request.setAttribute("news", latestNews);
-			// request.setAttribute("news", null);
-
 			request.getRequestDispatcher("WEB-INF/pages/layouts/baseLayout.jsp").forward(request, response);
 		} catch (ServiceException e) {
 			LOG.error(e);

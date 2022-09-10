@@ -5,9 +5,9 @@ public class ValidationConstant {
 	public static final String LOGIN_AND_PASSWORD_REGEX = "[\\w]{4,24}";
 	public static final String EMAIL_REGEX = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}";
 
-	public static final String INVALID_NAME = "invalid name";
-	public static final String INVALID_SURNAME = "invalid surname";
-	public static final String INVALID_LOGIN = "invalid login";
-	public static final String INVALID_PASSWORD = "invalid password";
-	public static final String INVALID_EMAIL = "invalid email";
+	public static final String INVALID_NAME = "invalidName";
+	public static final String INVALID_SURNAME = "invalidSurname";
+	public static final String INVALID_LOGIN = "invalidLogin";
+	public static final String INVALID_PASSWORD = "invalidPassword";
+	public static final String INVALID_EMAIL = "invalidEmail";
 }

@@ -1,7 +1,7 @@
 package by.htp.ex.util.validation.impl;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 import by.htp.ex.bean.NewUserInfo;
@@ -10,7 +10,7 @@ import by.htp.ex.util.validation.UserDataValidation;
 
 public class UserDataValidationImpl implements UserDataValidation {
 
-	private List<String> invalidData = new ArrayList<String>();
+	private Map <String, Boolean> invalidData = new HashMap<String, Boolean>();
 
 	@Override
 	public boolean checkAuthData(String login, String password) {
@@ -22,23 +22,23 @@ public class UserDataValidationImpl implements UserDataValidation {
 
 		if (!checkingNameOrSurname(user.getFirstName())) {
 			System.out.println("неверное имя");
-			invalidData.add(ValidationConstant.INVALID_NAME);
+			invalidData.put(ValidationConstant.INVALID_NAME, false);
 		}
 		if (!checkingNameOrSurname(user.getLastName())) {
 			System.out.println("неверная фамилия");
-			invalidData.add(ValidationConstant.INVALID_SURNAME);
+			invalidData.put(ValidationConstant.INVALID_SURNAME, false);
 		}
 		if (!checkingLoginOrPassword(user.getLogin())) {
 			System.out.println("неверный логин");
-			invalidData.add(ValidationConstant.INVALID_LOGIN);
+			invalidData.put(ValidationConstant.INVALID_LOGIN, false);
 		}
 		if (!checkingLoginOrPassword(user.getPassword())) {
 			System.out.println("неверный пароль");
-			invalidData.add(ValidationConstant.INVALID_PASSWORD);
+			invalidData.put(ValidationConstant.INVALID_PASSWORD, false);
 		}
 		if (!checkingEmail(user.getEmail())) {
 			System.out.println("неверный email");
-			invalidData.add(ValidationConstant.INVALID_EMAIL);
+			invalidData.put(ValidationConstant.INVALID_EMAIL, false);
 		}
 
 		return checkingNameOrSurname(user.getFirstName()) && checkingNameOrSurname(user.getLastName())
@@ -59,7 +59,7 @@ public class UserDataValidationImpl implements UserDataValidation {
 	}
 
 	@Override
-	public List<String> getInvalidData() {
+	public Map<String, Boolean> getInvalidData() {
 		return invalidData;
 	}
 }
