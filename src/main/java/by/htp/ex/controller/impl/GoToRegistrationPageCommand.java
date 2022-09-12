@@ -2,6 +2,7 @@ package by.htp.ex.controller.impl;
 
 import java.io.IOException;
 
+import by.htp.ex.constant.ControllerConstant;
 import by.htp.ex.controller.Command;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -11,8 +12,8 @@ public class GoToRegistrationPageCommand implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setAttribute("registration_status", "active");
-		request.getRequestDispatcher("WEB-INF/pages/layouts/baseLayout.jsp").forward(request, response);
+		request.setAttribute(ControllerConstant.REGISTRATION_STATUS, ControllerConstant.ACTIVE);
+		request.getRequestDispatcher(ControllerConstant.GO_TO_BASE_LAYOUT).forward(request, response);
 		
 	}
 

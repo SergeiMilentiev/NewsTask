@@ -7,6 +7,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import by.htp.ex.bean.News;
+import by.htp.ex.constant.ControllerConstant;
+import by.htp.ex.constant.NewsConstant;
 import by.htp.ex.controller.Command;
 import by.htp.ex.service.INewsService;
 import by.htp.ex.service.ServiceException;
@@ -27,10 +29,11 @@ public class GoToBasePage implements Command {
 		List<News> latestNews;
 		try {
 			latestNews = newsService.latestList(5);
-			request.setAttribute("news", latestNews);
-			request.getRequestDispatcher("WEB-INF/pages/layouts/baseLayout.jsp").forward(request, response);
+			request.setAttribute(NewsConstant.NEWS, latestNews);
+			request.getRequestDispatcher(ControllerConstant.GO_TO_BASE_LAYOUT).forward(request, response);
 		} catch (ServiceException e) {
 			LOG.error(e);
+			response.sendRedirect(ControllerConstant.GO_TO_ERROR_PAGE);
 		}
 
 	}

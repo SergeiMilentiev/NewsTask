@@ -7,6 +7,8 @@
 	var="menu_title" />
 <fmt:message bundle="${loc}" key="local.quest_news_title.name"
 	var="latest_news" />	
+<fmt:message bundle="${loc}" key="local.news_no_news.name"
+	var="no_news" />
 
 <div class="body-title">
 	<a href="">${menu_title}>> </a> ${latest_news}
@@ -33,7 +35,7 @@
 
 	<div class="no-news">
 		<c:if test="${requestScope.news eq null}">
-        No news.
+        ${no_news}
 	</c:if>
 	</div>
 

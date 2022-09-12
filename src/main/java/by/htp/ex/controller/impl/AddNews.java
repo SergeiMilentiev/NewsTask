@@ -7,6 +7,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import by.htp.ex.bean.News;
+import by.htp.ex.constant.ControllerConstant;
 import by.htp.ex.constant.NewsConstant;
 import by.htp.ex.controller.Command;
 import by.htp.ex.service.INewsService;
@@ -30,18 +31,20 @@ public class AddNews implements Command{
 		LocalDate newsDate = LocalDate.now();
 
 		News news = new News(title, briefNews, content, newsDate);
-
+		
+		request.getSession().removeAttribute(NewsConstant.NEWS_ADDED_STATUS);
+		
 		try {
 			if (iNewsService.addNews(news)) {
-				request.getSession(true).setAttribute(NewsConstant.NEWS_ADDED_STATUS, true);
-				response.sendRedirect(NewsConstant.GO_TO_NEWS_LIST);
+				request.getSession().setAttribute(NewsConstant.NEWS_ADDED_STATUS, true);
+				response.sendRedirect(NewsConstant.GO_TO_ADD_NEWS);
 			} else {
-				request.getSession(true).setAttribute(NewsConstant.NEWS_ADDED_STATUS, false);
+				request.getSession().setAttribute(NewsConstant.NEWS_ADDED_STATUS, false);
 				response.sendRedirect(NewsConstant.GO_TO_ADD_NEWS);
 			}
 		} catch (ServiceException e) {
 			LOG.error(e);
-			response.sendRedirect("controller?command=go_to_error_page");
+			response.sendRedirect(ControllerConstant.GO_TO_ERROR_PAGE);
 		}
 		
 	}

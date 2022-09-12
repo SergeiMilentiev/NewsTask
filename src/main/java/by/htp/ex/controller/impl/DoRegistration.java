@@ -47,17 +47,16 @@ public class DoRegistration implements Command {
 			boolean isRegistrationComplite = service.registration(newUser);
 
 			if (isRegistrationComplite) {
-				request.getSession().setAttribute("isRegistrationComplite", true);
+				request.getSession().setAttribute(ControllerConstant.IS_REGISTRATION_COMPLITE, true);
 				response.sendRedirect(ControllerConstant.GO_TO_BASE_PAGE);
 			} else {
 				Map<String, Boolean> invalidData = userDataValidation.getInvalidData();
-				//request.getSession(true).setAttribute("user", "not active");
 				request.getSession().setAttribute(ControllerConstant.REGISTRATION_ERROR, invalidData);
-				//request.getRequestDispatcher("/WEB-INF/pages/layouts/baseLayout.jsp").forward(request, response);
 				response.sendRedirect(ControllerConstant.GO_TO_REGISTRATION_PAGE);
 			}
 		} catch (ServiceException e) {
 			LOG.error(e);
+			response.sendRedirect(ControllerConstant.GO_TO_ERROR_PAGE);
 		}
 	}
 

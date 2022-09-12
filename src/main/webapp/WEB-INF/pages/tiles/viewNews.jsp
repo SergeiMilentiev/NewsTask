@@ -3,6 +3,8 @@
 
 <fmt:setLocale value="${sessionScope.local}" />
 <fmt:setBundle basename="localization.local" var="loc" />
+<fmt:message bundle="${loc}" key="local.menu_title.name"
+	var="news_menu" />
 <fmt:message bundle="${loc}" key="local.view_news_title.name"
 	var="view_news_title" />
 <fmt:message bundle="${loc}" key="local.view_news_label_news_title.name"
@@ -19,7 +21,7 @@
 	var="button_delete" />
 
 <div class="body-title">
-	<a href="">News >> </a> ${view_news_title}
+	<a href="controller?command=go_to_news_list">${news_menu} >> </a> ${view_news_title}
 </div>
 
 <div class="add-table-margin">
@@ -57,7 +59,7 @@
 <c:if test="${sessionScope.role eq 'admin'}">
 <div class="first-view-button">
 	<form action="controller" method="post">
-		<input type="hidden" name="command" value="go_to_edit_page" /> <input
+		<input type="hidden" name="command" value="go_to_edit_news" /> <input
 			type="hidden" name="id" value="${news.idNews}" /> <input
 			type="submit" value="${button_edit}" />
 	</form>

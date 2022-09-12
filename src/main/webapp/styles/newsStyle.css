@@ -249,14 +249,14 @@ html,body {
 	width: 50px;
 	position: relative;
 	margin-top: 20px;
-	left: 22%;
+	left: 45%;
 }
 
 .second-view-button {
 	width: 50px;
 	position: relative;
-	bottom: 23px;
-	left: 35%;
+	margin-top: 20px;
+	left: 15%;
 }
 
 a:visited {

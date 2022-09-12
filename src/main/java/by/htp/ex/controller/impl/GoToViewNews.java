@@ -7,6 +7,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import by.htp.ex.bean.News;
+import by.htp.ex.constant.ControllerConstant;
 import by.htp.ex.constant.NewsConstant;
 import by.htp.ex.controller.Command;
 import by.htp.ex.service.INewsService;
@@ -31,13 +32,13 @@ public class GoToViewNews implements Command {
 
 		try {
 			news = newsService.findById(Integer.parseInt(id));
-			request.setAttribute("news", news);
-			request.setAttribute("presentation", "viewNews");
+			request.setAttribute(NewsConstant.NEWS, news);
+			request.setAttribute(ControllerConstant.PRESENTATION, NewsConstant.VIEW_NEWS);
 
-			request.getRequestDispatcher("WEB-INF/pages/layouts/baseLayout.jsp").forward(request, response);
+			request.getRequestDispatcher(ControllerConstant.GO_TO_BASE_LAYOUT).forward(request, response);
 		} catch (ServiceException e) {
 			logger.log(Level.ERROR, e);
-			response.sendRedirect("controller?command=go_to_error_page");
+			response.sendRedirect(ControllerConstant.GO_TO_ERROR_PAGE);
 		}
 
 	}

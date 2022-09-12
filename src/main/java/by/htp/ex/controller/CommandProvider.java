@@ -9,6 +9,7 @@ import by.htp.ex.controller.impl.DeleteNews;
 import by.htp.ex.controller.impl.DoRegistration;
 import by.htp.ex.controller.impl.DoSIgnIn;
 import by.htp.ex.controller.impl.DoSignOut;
+import by.htp.ex.controller.impl.EditNews;
 import by.htp.ex.controller.impl.GoToAddNews;
 import by.htp.ex.controller.impl.GoToBasePage;
 import by.htp.ex.controller.impl.GoToEditNews;
@@ -31,6 +32,7 @@ public class CommandProvider {
 		commands.put(CommandName.GO_TO_ADD_NEWS, new GoToAddNews());
 		commands.put(CommandName.ADD_NEWS, new AddNews());
 		commands.put(CommandName.GO_TO_EDIT_NEWS, new GoToEditNews());
+		commands.put(CommandName.EDIT_NEWS, new EditNews());
 		commands.put(CommandName.DELETE_NEWS, new DeleteNews());
 		commands.put(CommandName.CHANGE_LOCAL, new ChangeLocal());
 		commands.put(CommandName.GO_TO_ERROR_PAGE, new GoToErrorPage());

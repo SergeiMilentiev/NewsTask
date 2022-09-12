@@ -67,6 +67,8 @@ public class NewsDAO implements INewsDAO {
 				PreparedStatement stmt = connection.prepareStatement(SQLConstant.FETCH_BY_ID_NEWS)) {
 			stmt.setInt(1, id);
 			ResultSet rs = stmt.executeQuery();
+			
+			rs.next();
 
 			News news = new News(rs.getInt(NewsConstant.NEWS_ID), rs.getString(NewsConstant.NEWS_TITLE),
 					rs.getString(NewsConstant.NEWS_BRIEF), rs.getString(NewsConstant.NEWS_CONTENT),
@@ -86,7 +88,8 @@ public class NewsDAO implements INewsDAO {
 			stmt.setString(2, news.getBriefNews());
 			stmt.setString(3, news.getContent());
 			stmt.setDate(4, Date.valueOf(news.getNewsDate()));
-			return stmt.execute();
+			stmt.execute();
+			return true;
 		} catch (ConnectionPoolException | SQLException e) {
 			throw new NewsDAOException(e);
 		}
@@ -100,6 +103,7 @@ public class NewsDAO implements INewsDAO {
 			stmt.setString(2, news.getBriefNews());
 			stmt.setString(3, news.getContent());
 			stmt.setDate(4, Date.valueOf(news.getNewsDate()));
+			stmt.setInt(5, news.getIdNews());
 
 			stmt.executeUpdate();
 
@@ -115,7 +119,7 @@ public class NewsDAO implements INewsDAO {
 				PreparedStatement stmt = connection.prepareStatement(SQLConstant.DELETE_NEWS)) {
 			for (int i : idNewses) {
 				stmt.setInt(1, i);
-				stmt.executeQuery();
+				stmt.executeUpdate();
 			}
 		} catch (ConnectionPoolException | SQLException e) {
 			throw new NewsDAOException(e);

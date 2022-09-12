@@ -11,12 +11,16 @@
 	var="edit_news_button" />
 <fmt:message bundle="${loc}" key="local.view_news_title.name"
 	var="view_news_button" />
+<fmt:message bundle="${loc}" key="local.view_news_button_delete.name"
+	var="delete_button" />
+<fmt:message bundle="${loc}" key="local.news_no_news.name"
+	var="no_news" />
 
 <div class="body-title">
 	<a href="">${menu_title} >> </a> ${news_list}
 </div>
 
-<form action="" method="post">
+<form action="controller" method="post">
 	<c:forEach var="news" items="${requestScope.news}">
 		<div class="single-news-wrapper">
 			<div class="single-news-header-wrapper">
@@ -39,26 +43,22 @@
 						<a href="controller?command=go_to_view_news&id=${news.idNews}">${view_news_button}</a> 
    					    
    					    <c:if test="${sessionScope.role eq 'admin'}">
-   					         <input type="checkbox" name="idNews" value="${news.idNews }" />
+   					        <input type="checkbox" name="id" value="${news.idNews}" />
    					    </c:if>
 					</div>
 				</div>
 			</div>
 		</div>
-
 	</c:forEach>
-
-	<!-- 	<logic:notEmpty name="newsForm" property="newsList">
-		<div class="delete-button-position">
-			<html:submit>
-				<bean:message key="locale.newslink.deletebutton" />
-			</html:submit>
-		</div>
-	</logic:notEmpty> -->
-
 	<div class="no-news">
 		<c:if test="${requestScope.news eq null}">
-        No news.
-	</c:if>
+        	${no_news}
+		</c:if>
+	</div>
+	<div class="delete-button">
+		<c:if test="${not(requestScope.news eq null) && sessionScope.role eq 'admin'}">
+			<input type="hidden" name="command" value="delete_news" />
+			<p align="right"><input type="submit" value="${delete_button}"/></p><br />
+		</c:if>
 	</div>
 </form>

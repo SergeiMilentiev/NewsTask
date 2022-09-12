@@ -6,6 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import by.htp.ex.constant.ControllerConstant;
+import by.htp.ex.constant.NewsConstant;
 import by.htp.ex.constant.UserConstant;
 import by.htp.ex.controller.Command;
 import by.htp.ex.service.IUserService;
@@ -36,15 +37,16 @@ public class DoSIgnIn implements Command {
 			if (!role.equals(UserConstant.GUEST_ROLE)) {
 				request.getSession(true).setAttribute(UserConstant.USER_ROLE, ControllerConstant.ACTIVE);
 				request.getSession(true).setAttribute(UserConstant.ROLE, role);
-				response.sendRedirect("controller?command=go_to_news_list");
+				response.sendRedirect(NewsConstant.GO_TO_NEWS_LIST);
 			} else {
-				request.getSession(true).setAttribute(UserConstant.USER_ROLE, ControllerConstant.NOT_ACTIVE);
-				request.setAttribute("AuthenticationError", "wrong login or password");
-				request.getRequestDispatcher("/WEB-INF/pages/layouts/baseLayout.jsp").forward(request, response);
+				request.getSession(true).setAttribute(UserConstant.ROLE, UserConstant.GUEST_ROLE);
+				request.setAttribute(ControllerConstant.AUTHNTICATION_ERROR, "wrong login or password");
+				request.getRequestDispatcher(ControllerConstant.GO_TO_BASE_LAYOUT).forward(request, response);
 			}
 
 		} catch (ServiceException e) {
 			LOG.error(e);
+			response.sendRedirect(ControllerConstant.GO_TO_ERROR_PAGE);
 		}
 	}
 }

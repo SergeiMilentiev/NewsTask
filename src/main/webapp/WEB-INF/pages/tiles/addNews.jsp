@@ -3,6 +3,8 @@
 
 <fmt:setLocale value="${sessionScope.local}" />
 <fmt:setBundle basename="localization.local" var="loc" />
+<fmt:message bundle="${loc}" key="local.menu_title.name"
+	var="news_menu" />
 <fmt:message bundle="${loc}" key="local.view_news_label_news_title.name"
 	var="news_title" />
 <fmt:message bundle="${loc}" key="local.view_news_label_news_brief.name"
@@ -15,15 +17,21 @@
 	var="news_added" />	
 <fmt:message bundle="${loc}" key="local.news_not_added_message.name"
 	var="news_not_added" />		
+<fmt:message bundle="${loc}" key="local.menu_add_news_link.name"
+	var="add_news_link" />	
+
+<div class="body-title">
+	<a href="controller?command=go_to_news_list">${news_menu} >> </a> ${add_news_link}
+</div>
 
 <div align="center">
 	<form action="controller" method="post"> 
 		<div>
 			<p>${news_title}</p>
-			<p><input type="text" name="title" value="title" size=30 maxlength=150 required="required"/></p>
+			<p><input type="text" name="title" placeholder="${news_title}" size=30 maxlength=150 required="required"/></p>
         
         	<p>${news_brief}</p>
-			<p><input type="text" name="briefNews" value="briefNews" size=20 maxlength=150 required="required"/></p>
+			<p><input type="text" name="brief" placeholder="${news_brief}" size=30 maxlength=150 required="required"/></p>
        					
 			<p>${news_content}</p>	
             <p><textarea name="content" required="required"/></textarea></p>
@@ -40,7 +48,7 @@
   </c:if>
   
   <c:if test = "${sessionScope.news_added_status eq true}">
-   		<font color="red">
+   		<font color="green">
 			<c:out value="${news_added}"/><br>
 		</font>
   </c:if>

@@ -13,8 +13,8 @@ public class GoToAddNews implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getSession().setAttribute(NewsConstant.NEWS_ADD_STATUS, "add_news");
-		response.sendRedirect(ControllerConstant.GO_TO_BASE_PAGE);
+		request.setAttribute(NewsConstant.NEWS_ADD_STATUS, NewsConstant.ADD_NEWS);
+		request.getRequestDispatcher(ControllerConstant.GO_TO_BASE_LAYOUT).forward(request, response);
 	}
 
 }
