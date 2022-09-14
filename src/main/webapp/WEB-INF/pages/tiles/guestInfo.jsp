@@ -11,7 +11,7 @@
 	var="no_news" />
 
 <div class="body-title">
-	<a href="">${menu_title}>> </a> ${latest_news}
+	<a href="controller?command=go_to_base_page">${menu_title}>> </a> ${latest_news}
 </div>
 
 <form action="command.do?method=delete" method="post">
