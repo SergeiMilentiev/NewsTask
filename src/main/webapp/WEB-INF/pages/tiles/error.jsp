@@ -1,1 +1,1 @@
-Error page. Sorry.
+<a href="controller?command=go_to_base_page"><img src="images/image404.jpeg" alt="HTML5 Icon" width="100%"> </a>

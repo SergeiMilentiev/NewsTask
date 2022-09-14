@@ -10,6 +10,8 @@ public class ControllerConstant {
 	public static final String IS_REGISTRATION_COMPLITE ="isRegistrationComplite";
 	public static final String PRESENTATION = "presentation";
 	public static final String INDEX_JSP = "index.jsp";
+	public static final String WRONG_LOGIN_OR_PASSWORD = "wrong login or password";
+	public static final String ERROR_PAGE = "WEB-INF/pages/tiles/error.jsp";
 	
 	//GO_TO constants
 	public static final String GO_TO_BASE_LAYOUT = "/WEB-INF/pages/layouts/baseLayout.jsp";

@@ -62,11 +62,9 @@ public class ConnectionPool {
 			connectionQueue = new ArrayBlockingQueue<Connection>(poolSize);
 
 			for (int i = 0; i < poolSize; i++) {
-				System.out.println("ЦИкл for poolsize = " + poolSize);
 				Connection connection = DriverManager.getConnection(url, user, password);
 				PooledConnection pooledConnection = new PooledConnection(connection);
 				connectionQueue.add(pooledConnection);
-				System.out.println("Добавили коннектионы");
 			}
 		} catch (SQLException e) {
 			System.out.println("sqlexeption");
@@ -97,9 +95,7 @@ public class ConnectionPool {
 	public Connection takeConnection() throws ConnectionPoolException {
 		Connection connection = null;
 		try {
-			System.out.println("Перед взятием коннектиона");
 			connection = connectionQueue.take();
-			System.out.println("Отдай коннектион!!!");
 			givenAwayConQueue.add(connection);
 		} catch (InterruptedException e) {
 			throw new ConnectionPoolException("Error connection to the data source", e);

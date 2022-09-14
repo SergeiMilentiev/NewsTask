@@ -30,7 +30,6 @@ public class GoToNewsList implements Command {
 			newsList = newsService.list();
 			request.setAttribute(NewsConstant.NEWS, newsList);
 			request.setAttribute(ControllerConstant.PRESENTATION, NewsConstant.NEWS_LIST);
-			// request.setAttribute("news", null);
 
 			request.getRequestDispatcher(ControllerConstant.GO_TO_BASE_LAYOUT).forward(request, response);
 		} catch (ServiceException e) {

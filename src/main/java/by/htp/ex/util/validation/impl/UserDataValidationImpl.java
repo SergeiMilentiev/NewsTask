@@ -21,23 +21,18 @@ public class UserDataValidationImpl implements UserDataValidation {
 	public boolean checkRegData(NewUserInfo user) {
 
 		if (!checkingNameOrSurname(user.getFirstName())) {
-			System.out.println("неверное имя");
 			invalidData.put(ValidationConstant.INVALID_NAME, false);
 		}
 		if (!checkingNameOrSurname(user.getLastName())) {
-			System.out.println("неверная фамилия");
 			invalidData.put(ValidationConstant.INVALID_SURNAME, false);
 		}
 		if (!checkingLoginOrPassword(user.getLogin())) {
-			System.out.println("неверный логин");
 			invalidData.put(ValidationConstant.INVALID_LOGIN, false);
 		}
 		if (!checkingLoginOrPassword(user.getPassword())) {
-			System.out.println("неверный пароль");
 			invalidData.put(ValidationConstant.INVALID_PASSWORD, false);
 		}
 		if (!checkingEmail(user.getEmail())) {
-			System.out.println("неверный email");
 			invalidData.put(ValidationConstant.INVALID_EMAIL, false);
 		}
 

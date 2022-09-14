@@ -40,7 +40,7 @@ public class DoSIgnIn implements Command {
 				response.sendRedirect(NewsConstant.GO_TO_NEWS_LIST);
 			} else {
 				request.getSession(true).setAttribute(UserConstant.ROLE, UserConstant.GUEST_ROLE);
-				request.setAttribute(ControllerConstant.AUTHNTICATION_ERROR, "wrong login or password");
+				request.setAttribute(ControllerConstant.AUTHNTICATION_ERROR, ControllerConstant.WRONG_LOGIN_OR_PASSWORD);
 				request.getRequestDispatcher(ControllerConstant.GO_TO_BASE_LAYOUT).forward(request, response);
 			}
 

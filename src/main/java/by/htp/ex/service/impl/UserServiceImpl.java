@@ -21,7 +21,6 @@ public class UserServiceImpl implements IUserService {
 
 		try {
 			if (userDAO.logination(login, password)) {
-				System.out.println("Залогинились");
 				return userDAO.getRole(login, password);
 			} else {
 				return UserConstant.GUEST_ROLE;
@@ -37,11 +36,9 @@ public class UserServiceImpl implements IUserService {
 	public boolean registration(NewUserInfo user) throws ServiceException {
 		try {
 			if (userDataValidation.checkRegData(user) && !isUserAlreadyEcxists(user)) {
-				System.out.println("правильный юзер");
 				userDAO.registration(user);
 				return true;
 			} else {
-				System.out.println("неправильный юзер");
 				return false;
 			}
 		} catch (DaoException e) {
@@ -50,7 +47,6 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	private boolean isUserAlreadyEcxists(NewUserInfo user) throws DaoException {
-		System.out.println("проверка существования пользователя");
 		return userDAO.checkUserEcxists(user.getLogin(), user.getEmail());
 	}
 }

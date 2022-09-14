@@ -2,6 +2,7 @@ package by.htp.ex.controller.impl;
 
 import java.io.IOException;
 
+import by.htp.ex.constant.ControllerConstant;
 import by.htp.ex.controller.Command;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -11,7 +12,7 @@ public class GoToErrorPage implements Command{
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		request.getRequestDispatcher(ControllerConstant.ERROR_PAGE).forward(request, response);
 	}
 
 }
