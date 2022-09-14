@@ -15,6 +15,8 @@
 	var="header_title" />
 <fmt:message bundle="${loc}" key="local.login_label.name"
 	var="login_label" />
+<fmt:message bundle="${loc}" key="local.invalid_login_or_password_label.name"
+	var="invalid_login_or_password" />	
 <fmt:message bundle="${loc}" key="local.password_label.name"
 	var="password_label" />
 <fmt:message bundle="${loc}" key="local.registration_button.name"
@@ -37,7 +39,7 @@
 
 					<c:if test="${not (requestScope.AuthenticationError eq null)}">
 						<font color="red"> 
-						   <c:out value="${requestScope.AuthenticationError}" />
+						   <c:out value="${invalid_login_or_password}" />
 						</font> 
 					</c:if>
 					<c:if test="${requestScope.isRegistrationComplite eq true }">
