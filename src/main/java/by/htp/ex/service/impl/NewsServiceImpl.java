@@ -44,7 +44,7 @@ public class NewsServiceImpl implements INewsService {
 	public List<News> latestList(int count) throws ServiceException {
 
 		try {
-			return newsDAO.getLatestsList(5);
+			return newsDAO.getLatestsList(count);
 		} catch (NewsDAOException e) {
 			throw new ServiceException(e);
 		}

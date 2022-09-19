@@ -23,10 +23,17 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executor;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import by.htp.ex.controller.impl.AddNews;
+
 public class ConnectionPool {
 	private static final ConnectionPool instance = new ConnectionPool();
 	private BlockingQueue<Connection> connectionQueue;
 	private BlockingQueue<Connection> givenAwayConQueue;
+	
+	private final static Logger LOG = LogManager.getLogger(ConnectionPool.class);
 
 	private String driverName;
 	private String url;
@@ -50,7 +57,7 @@ public class ConnectionPool {
 		try {
 			initPoolData();
 		} catch (ConnectionPoolException e) {
-
+			LOG.error(e);
 		}
 	}
 
@@ -88,7 +95,7 @@ public class ConnectionPool {
 			closeConnectionQueue(givenAwayConQueue);
 			closeConnectionQueue(connectionQueue);
 		} catch (SQLException e) {
-
+			LOG.error(e);
 		}
 	}
 
@@ -108,19 +115,19 @@ public class ConnectionPool {
 		try {
 			con.close();
 		} catch (SQLException e) {
-
+			LOG.error(e);
 		}
 
 		try {
 			rs.close();
 		} catch (SQLException e) {
-
+			LOG.error(e);
 		}
 
 		try {
 			st.close();
 		} catch (SQLException e) {
-
+			LOG.error(e);
 		}
 	}
 
@@ -128,13 +135,13 @@ public class ConnectionPool {
 		try {
 			con.close();
 		} catch (SQLException e) {
-
+			LOG.error(e);
 		}
 
 		try {
 			st.close();
 		} catch (SQLException e) {
-
+			LOG.error(e);
 		}
 	}
 

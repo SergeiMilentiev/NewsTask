@@ -15,7 +15,7 @@ import by.htp.ex.dao.IUserDAO;
 
 public class UserDAO implements IUserDAO {
 
-	ConnectionPool connectionPool = ConnectionPool.getInstance();
+	private final ConnectionPool connectionPool = ConnectionPool.getInstance();
 
 	@Override
 	public boolean logination(String login, String password) throws DaoException {
